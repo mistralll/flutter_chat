@@ -23,7 +23,25 @@ class ChatApp extends StatelessWidget {
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              child: Text('ログイン'),
+              onPressed: () async {
+                await Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) {
+                    return ChatPage();
+                  }),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
