@@ -80,6 +80,18 @@ class ChatPage extends StatelessWidget {
 class PostingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('ポスト'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: Text('戻る'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+    );
   }
 }
