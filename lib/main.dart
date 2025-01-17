@@ -4,9 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  print('check: 1');
   await Firebase.initializeApp();
-  print('check: 2');
 
   runApp(const ChatApp());
 }
