@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  print('check: 1');
+  await Firebase.initializeApp();
+  print('check: 2');
+
   runApp(const ChatApp());
 }
 
@@ -22,27 +27,71 @@ class ChatApp extends StatelessWidget {
   }
 }
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  String infoText = '';
+  String email = '';
+  String password = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
+          child: Container(
+        padding: EdgeInsets.all(24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              child: Text('ログイン'),
-              onPressed: () async {
-                await Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) {
-                    return ChatPage();
-                  }),
-                );
+            TextFormField(
+              decoration: InputDecoration(labelText: 'メールアドレス'),
+              onChanged: (String value) {
+                setState(() {
+                  email = value;
+                });
               },
             ),
+            TextFormField(
+              decoration: InputDecoration(labelText: 'パスワード'),
+              obscureText: true,
+              onChanged: (String value) {
+                setState(() {
+                  password = value;
+                });
+              },
+            ),
+            Container(
+              padding: EdgeInsets.all(8),
+              child: Text(infoText),
+            ),
+            Container(
+              width: double.infinity,
+              child: ElevatedButton(
+                  child: Text('サインアップ'),
+                  onPressed: () async {
+                    try {
+                      final FirebaseAuth auth = FirebaseAuth.instance;
+                      await auth.createUserWithEmailAndPassword(
+                          email: email, password: password);
+
+                      await Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) {
+                        return ChatPage();
+                      }));
+                    } catch (e) {
+                      print('サインアップに失敗しました: ${e.toString()}');
+                      setState(() {
+                        infoText = 'サインアップに失敗しました: ${e.toString()}';
+                      });
+                    }
+                  }),
+            )
           ],
         ),
-      ),
+      )),
     );
   }
 }
