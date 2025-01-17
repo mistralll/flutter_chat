@@ -25,27 +25,6 @@
   <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
 </head>
 <body>
-  <script>
-    // Firebase 初期化スクリプト
-    async function initializeFirebase() {
-      try {
-        // firebaseConfig.json の読み込み
-        const response = await fetch('firebaseConfig.json');
-        const firebaseConfig = await response.json();
-
-        // Firebase アプリの初期化
-        const app = firebase.initializeApp(firebaseConfig);
-
-        console.log('Firebase initialized successfully:', app);
-      } catch (error) {
-        console.error('Error initializing Firebase:', error);
-      }
-    }
-
-    // 初期化の実行
-    initializeFirebase();
-  </script>
-
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
