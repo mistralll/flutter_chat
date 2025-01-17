@@ -80,24 +80,25 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               width: double.infinity,
               child: ElevatedButton(
-                  child: Text('サインアップ'),
-                  onPressed: () async {
-                    try {
-                      final FirebaseAuth auth = FirebaseAuth.instance;
-                      await auth.createUserWithEmailAndPassword(
-                          email: email, password: password);
+                child: Text('サインアップ'),
+                onPressed: () async {
+                  try {
+                    final FirebaseAuth auth = FirebaseAuth.instance;
+                    await auth.createUserWithEmailAndPassword(
+                        email: email, password: password);
 
-                      await Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) {
-                        return ChatPage();
-                      }));
-                    } catch (e) {
-                      print('サインアップに失敗しました: ${e.toString()}');
-                      setState(() {
-                        infoText = 'サインアップに失敗しました: ${e.toString()}';
-                      });
-                    }
-                  }),
+                    await Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) {
+                      return ChatPage();
+                    }));
+                  } catch (e) {
+                    print('サインアップに失敗しました: ${e.toString()}');
+                    setState(() {
+                      infoText = 'サインアップに失敗しました: ${e.toString()}';
+                    });
+                  }
+                }
+              ),
             )
           ],
         ),
